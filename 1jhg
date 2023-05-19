@@ -1,0 +1,42 @@
+class TreeNode<T> {
+    public T Data { get; set; }
+    public TreeNode<T> Left { get; set; }
+    public TreeNode<T> Right { get; set; }
+
+    public TreeNode(T data) {
+        Data = data;
+    }
+}
+
+class BinaryTree<T> {
+    private TreeNode<T> root;
+
+    public void Insert(T data) {
+        if (root == null) {
+            root = new TreeNode<T>(data);
+        } else {
+            Insert(root, data);
+        }
+    }
+
+    private void Insert(TreeNode<T> node, T data) {
+        if (Comparer<T>.Default.Compare(data, node.Data) < 0) {
+            if (node.Left == null) {
+                node.Left = new TreeNode<T>(data);
+            } else {
+                Insert(node.Left, data);
+            }
+        } else {
+            if (node.Right == null) {
+                node.Right = new TreeNode<T>(data);
+            } else {
+                Insert(node.Right, data);
+            }
+        }
+    }
+}
+
+BinaryTree<int> tree = new BinaryTree<int>();
+tree.Insert(5);
+tree.Insert(3);
+tree.Insert(8);
